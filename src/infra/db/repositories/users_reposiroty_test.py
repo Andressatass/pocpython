@@ -8,9 +8,10 @@ connection = db_connection_handler.get_engine().connect()
 
 @pytest.mark.skip(reason="Sensive test")
 def test_insert_user():
+    portfolio = {}
     mocked_id = '123'
     mocked_name = 'name'
-    mocked_wallet = 'carteira'
+    mocked_wallet = portfolio
     mocked_token = 'oqbjdfbdjf'
 
     users_repository = UsersRepository()
@@ -36,9 +37,10 @@ def test_insert_user():
 
 @pytest.mark.skip(reason="Sensive test")
 def test_select_user():
+    portfolio = {}
     mocked_id = '1234'
     mocked_name = 'name2'
-    mocked_wallet = 'carteira2'
+    mocked_wallet = portfolio
     mocked_token = 'oqb'
 
     sql = '''
@@ -59,3 +61,22 @@ def test_select_user():
         DELETE FROM users WHERE id = {response[0].id}
     '''))
     connection.commit()
+
+@pytest.mark.skip(reason="Sensive test")
+def test_update_user_portfolio():
+    portfolio = {}
+    mocked_id = '1234'
+    mocked_name = 'name2'
+    mocked_wallet = portfolio
+    mocked_token = 'token1'
+
+    sql = '''
+        INSERT INTO users (id, name, wallet, token) VALUES ('{}','{}','{}','{}')
+    '''.format(mocked_id, mocked_name, mocked_wallet, mocked_token)
+    connection.execute(text(sql))
+    connection.commit()
+
+    new_portfolio = {'falso dict'}
+
+    users_repository = UsersRepository()
+    users_repository.update_user_portfolio('token1', new_portfolio)

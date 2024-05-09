@@ -1,4 +1,5 @@
 from typing import List
+from typing import Dict
 from src.infra.db.settings.conection import DBConnectionHandler
 from src.infra.db.entities.users import Users as UsersEntity
 from src.data.interfaces.users_repository import UsersRepositoryInterface
@@ -7,7 +8,7 @@ from src.domain.models.users import Users
 class UsersRepository(UsersRepositoryInterface):
 
     @classmethod
-    def insert_user(cls, id_client: str, name: str, wallet: str, token: str) -> None:
+    def insert_user(cls, id_client: str, name: str, wallet: Dict, token: str) -> None:
         with DBConnectionHandler() as database:
             try:
                 new_registry = UsersEntity(
@@ -36,4 +37,19 @@ class UsersRepository(UsersRepositoryInterface):
             except Exception as exception:
                 database.session.rollback()
                 raise exception
-            
+
+    @classmethod
+    def update_user_portfolio(cls, token: str, portfolio: Dict) -> None:
+        with DBConnectionHandler() as database:
+            try:
+                user = (
+                    database.session
+                    .query(UsersEntity)
+                    .filter(UsersEntity.token == token)
+                    .first()
+                )
+                user.wallet = portfolio
+                database.session.commit()
+            except Exception as exception:
+                database.session.rollback()
+                raise exception
