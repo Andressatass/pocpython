@@ -1,6 +1,7 @@
 [MAIN]
 
 disable = 
+      W0123, # use of eval
       C0116, # missing-function-docstring
       E0015, # unrecognized-option
       C0114, # missing-module-docstring

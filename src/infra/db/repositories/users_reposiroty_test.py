@@ -76,7 +76,8 @@ def test_update_user_portfolio():
     connection.execute(text(sql))
     connection.commit()
 
-    new_portfolio = {'falso dict'}
+    portfolio['appl'] = 1234
+    new_portfolio_string = str(portfolio)
 
     users_repository = UsersRepository()
-    users_repository.update_user_portfolio('token1', new_portfolio)
+    users_repository.update_user_portfolio('token1', new_portfolio_string)
