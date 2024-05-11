@@ -30,7 +30,7 @@ class UsersRepository(UsersRepositoryInterface):
                     database.session
                         .query(UsersEntity)
                         .filter(UsersEntity.token == token)
-                        .all()
+                        .first()
                 )
                 return users
             except Exception as exception:

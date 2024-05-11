@@ -11,5 +11,9 @@ class Portfolio(ABC):
         pass
 
     @abstractmethod
-    def check_portfolio(self, token: str) -> dict:
+    def check_portfolio(self, token: str) -> list:
+        pass
+
+    @abstractmethod
+    def check_price_today(self, token:str) -> dict:
         pass

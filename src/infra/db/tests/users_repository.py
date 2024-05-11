@@ -15,9 +15,20 @@ class UsersRepositorySpy:
 
     def select_user(self, token: str) -> Users:
         self.select_user_atributes["token"] = token
+        self.select_user_atributes["wallet"] = "['PETR4']"
+        if token == "555":
+            return (
+                Users(
+                name= 'andressa',
+                wallet= ['AAPL', 'GOOGL'],
+                token= token
+                )
+            )
         return (
             Users(
-                name= 'andressa', wallet="{'PETR4': 123}", token= token
+                name= 'andressa',
+                wallet=self.select_user_atributes["wallet"],
+                token= token
             )
         )
 

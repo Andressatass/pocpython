@@ -8,7 +8,7 @@ connection = db_connection_handler.get_engine().connect()
 
 @pytest.mark.skip(reason="Sensive test")
 def test_insert_user():
-    portfolio = {}
+    portfolio = ['alofalacmg']
     mocked_id = '123'
     mocked_name = 'name'
     mocked_wallet = portfolio
@@ -37,8 +37,8 @@ def test_insert_user():
 
 @pytest.mark.skip(reason="Sensive test")
 def test_select_user():
-    portfolio = {}
-    mocked_id = '1234'
+    portfolio = []
+    mocked_id = '12345'
     mocked_name = 'name2'
     mocked_wallet = portfolio
     mocked_token = 'oqb'
@@ -52,19 +52,19 @@ def test_select_user():
     users_repository = UsersRepository()
     response = users_repository.select_user(mocked_token)
 
-    assert response[0].id == mocked_id
-    assert response[0].name == mocked_name
-    assert response[0].wallet == mocked_wallet
-    assert response[0].token == mocked_token
+    assert response.id == mocked_id
+    assert response.name == mocked_name
+    assert response.wallet == str(mocked_wallet)
+    assert response.token == mocked_token
 
     connection.execute(text(f'''
-        DELETE FROM users WHERE id = {response[0].id}
+        DELETE FROM users WHERE id = {response.id}
     '''))
     connection.commit()
 
 @pytest.mark.skip(reason="Sensive test")
 def test_update_user_portfolio():
-    portfolio = {}
+    portfolio = []
     mocked_id = '1234'
     mocked_name = 'name2'
     mocked_wallet = portfolio
@@ -76,8 +76,10 @@ def test_update_user_portfolio():
     connection.execute(text(sql))
     connection.commit()
 
-    portfolio['appl'] = 1234
+    portfolio.append('AAPL')
+    portfolio.append('lalala')
     new_portfolio_string = str(portfolio)
 
     users_repository = UsersRepository()
     users_repository.update_user_portfolio('token1', new_portfolio_string)
+
