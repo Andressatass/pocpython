@@ -33,7 +33,7 @@ class Portfolio(PortfolioInterface):
 
     def check_price_today(self, token: str) -> dict:
         user = self.__user_repository.select_user(token)
-        portfolio = ast.literal_eval(user.wallet)
+        portfolio = user.wallet
 
         portfolio_with_price = {}
         for ticker in portfolio:

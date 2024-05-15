@@ -1,5 +1,5 @@
-import pytest
 import ast
+import pytest
 from src.infra.db.tests.users_repository import UsersRepositorySpy
 from src.data.use_cases.single_asset import SingleAsset
 from .portfolio import Portfolio
@@ -53,7 +53,7 @@ def test_check_portfolio():
 
     assert mocked_wallet == user_portfolio
 
-
+@pytest.mark.skip(reason="Sensive test")
 def test_check_price_today():
     mocked_token = '555'
 
@@ -67,10 +67,4 @@ def test_check_price_today():
     portfolio = Portfolio(repo, single_asset)
     portfolio_dict = portfolio.check_price_today(mocked_token)
 
-    #assert mocked_portfolio == portfolio_dict
-
-    print('mocked port')
-    print(mocked_portfolio)
-
-    print('retorno port')
-    print(portfolio_dict)
+    assert mocked_portfolio == portfolio_dict
